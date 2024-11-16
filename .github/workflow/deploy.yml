@@ -1,0 +1,21 @@
+name: Deploy to WordPress Plugin Repo
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to WordPress Plugin Directory
+        uses: 10up/action-wordpress-plugin-deploy@v2
+        with:
+          svn-url: https://plugins.svn.wordpress.org/custom-group-block-attributes/
+          plugin-slug: custom-group-block-attributes
+          svn-username: ${{ secrets.WP_ORG_USERNAME }}
+          svn-password: ${{ secrets.WP_ORG_PASSWORD }}
